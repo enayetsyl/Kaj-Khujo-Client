@@ -2,7 +2,7 @@
 const Logo = () => {
   return (
     <div>
-      <button className="font-bold text-4xl text-logoText px-8 py-1 bg-logo"><span className="font-black shadow-white shadow-xl">KK</span> <br /><span className="text-xl">Kaj Khujo</span></button>
+      <button className="font-bold text-xl md:text-4xl text-logoText px-3 md:px-10 py-1 bg-logo"><p className="font-black shadow-white shadow-xl -mb-9  md:-mb-11">KK</p> <br /><p className="text-base md:text-xl">Kaj Khujo</p></button>
     </div>
   );
 };

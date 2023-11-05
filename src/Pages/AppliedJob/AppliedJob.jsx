@@ -2,7 +2,7 @@
 const AppliedJob = () => {
   return (
     <div>
-      
+      applied job
     </div>
   );
 };

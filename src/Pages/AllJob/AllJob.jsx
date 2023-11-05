@@ -2,7 +2,7 @@
 const AllJob = () => {
   return (
     <div>
-      
+      all job
     </div>
   );
 };
