@@ -3,6 +3,8 @@ import Button from "../../Component/Button";
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import swal from "sweetalert";
+import { getAuth, updateProfile } from "firebase/auth";
+import app from "../../Firebase/firebase.config";
 
 
 const Register = () => {
@@ -10,15 +12,15 @@ const Register = () => {
   const location = useLocation();
   const nevigate = useNavigate();
   const {createUser, setUserName, setUserPhoto, setUser} = useContext(AuthContext)
-
+  const auth = getAuth(app)
   const handleRegister = e => {
     e.preventDefault();
     const form = e.target;
-    const name = form.name.value;
+    const userName = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
     const photoURL = form.photo.value;
-    const user = {name, email, password, photoURL}
+    const user = {name: userName, email, password, photoURL}
     console.log(user)
     if(password.length < 8){
       swal("Maf Chai Vai/Apu", 'Password 8 digit DEN please', "error")
@@ -36,10 +38,19 @@ const Register = () => {
       console.log(res.user)
       if(res.user){
         // setUser(res.user)
-        setUserName(name)
+        setUserName(userName)
         setUserPhoto(photoURL)
-        swal('Ovinondon', "Your registration is complete", "success");
-        nevigate(location?.state ? location.state : '/')
+
+        updateProfile(auth.currentUser, {
+          displayName: userName,
+          photoURL:photoURL
+
+        })
+        .then(() => {
+          swal('Ovinondon', "Your registration is complete", "success");
+          nevigate(location?.state ? location.state : '/')
+        })
+        
       }
     })
     .catch((err) => {

@@ -3,10 +3,11 @@ import Button from "../../Component/Button";
 import { FcGoogle } from 'react-icons/fc';
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
+import swal from "sweetalert";
 
 const Login = () => {
 
-    const {loading, setUserName, setUserPhoto, signInUser, googleSignIn} = useContext(AuthContext)
+    const {loading, setUserName, setUserPhoto, user, signInUser, googleSignIn} = useContext(AuthContext)
 
   const location = useLocation();
   const nevigate = useNavigate()
@@ -17,9 +18,17 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
     console.log(email, password)
+    console.log(user)
     signInUser(email, password)
     .then(res => {
       console.log(res.user)
+      swal('Ovinondon', "Your Login Successful", "success")
+      nevigate(location?.state ? location.state : '/')
+    })
+    .catch(err => {
+      if(err){
+        swal("Maf Chai", `${err.message}`, "error")
+      }
     })
   }
 
