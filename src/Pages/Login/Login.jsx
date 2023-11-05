@@ -6,16 +6,29 @@ import { AuthContext } from "../../Provider/AuthProvider";
 
 const Login = () => {
 
+    const {loading, setUserName, setUserPhoto, signInUser, googleSignIn} = useContext(AuthContext)
+
   const location = useLocation();
-  const nevigate = useNavigate();
-  const {createUser, setUserName, setUserPhoto, setUser} = useContext(AuthContext)
+  const nevigate = useNavigate()
+
+  const handleLogin = e => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log(email, password)
+    signInUser(email, password)
+    .then(res => {
+      console.log(res.user)
+    })
+  }
 
   return (
     <>
       <div className="flex justify-center items-center">
         <div className="">
           <div className=" w-full shadow-2xl bg-base-100">
-            <form className="px-16 py-8">
+            <form className="px-16 py-8" onSubmit={handleLogin}>
               <div className="">
                 <label className="label">
                   <span className="label-text text-black">Email</span>

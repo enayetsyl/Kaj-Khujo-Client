@@ -1,14 +1,63 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import Button from "../../Component/Button";
+import { useContext } from "react";
+import { AuthContext } from "../../Provider/AuthProvider";
+import swal from "sweetalert";
+
 
 const Register = () => {
+
+  const location = useLocation();
+  const nevigate = useNavigate();
+  const {createUser, setUserName, setUserPhoto, setUser} = useContext(AuthContext)
+
+  const handleRegister = e => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    const photoURL = form.photo.value;
+    const user = {name, email, password, photoURL}
+    console.log(user)
+    if(password.length < 8){
+      swal("Maf Chai Vai/Apu", 'Password 8 digit DEN please', "error")
+      return
+    }else if(!/[A-Z]/.test(password)){
+      swal("Maf Chai Vai/Apu", 'Ekta capital letter den atleast', "error")
+      return
+    }else if(!/[!@#$%^&*()\-_=+\[\]{}|\\;:'"<>,.?/]/.test(password)){
+      swal("Maf Chai Vai/Apu", 'Ekta special character den', "error")
+      return
+    }
+
+    createUser(email, password)
+    .then(res => {
+      console.log(res.user)
+      if(res.user){
+        // setUser(res.user)
+        setUserName(name)
+        setUserPhoto(photoURL)
+        swal('Ovinondon', "Your registration is complete", "success");
+        nevigate(location?.state ? location.state : '/')
+      }
+    })
+    .catch((err) => {
+      const errorCode = err.code;
+      const errorMessage = err.message
+      if(err){
+        swal("Sorry", `${errorCode} ${errorMessage}`, "error")
+      }
+    })
+
+  }
   return (
     <>
      <div className="flex justify-center items-center">
   <div className="">
    
     <div className=" w-full shadow-2xl bg-base-100">
-    <form className="px-16 py-8">
+    <form className="px-16 py-8" onSubmit={handleRegister}>
         <div className="">
           <label className="label">
             <span className="label-text text-black">Name</span>
@@ -32,7 +81,7 @@ const Register = () => {
           <label className="label">
             <span className="label-text text-black">Photo</span>
           </label>
-          <input type="text" name="photo" placeholder="PhotoURL" className="input input-bordered text-placeholderText" required />
+          <input type="text" name="photo" placeholder="photoURL" className="input input-bordered text-placeholderText" required />
           
         </div>
         <div className=" text-center mt-6">
