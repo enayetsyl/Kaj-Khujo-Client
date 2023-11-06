@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { Link } from "react-router-dom";
 import Button from "../../Component/Button";
+import swal from "sweetalert";
 
 const MyJob = () => {
   const { user } = useContext(AuthContext);
@@ -34,6 +35,36 @@ const MyJob = () => {
     fetchData();
   }, [name]);
 
+  const handleDelete = (_id) =>{
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this job!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        fetch(`http://localhost:5000/api/v1/jobs/delete/${_id}`, {
+          method: 'DELETE'
+        })
+        .then(res => res.json())
+        .then(data => {
+          if(data.deletedCount > 0){
+            swal("Poof! Your job has been deleted!", {
+              icon: "success",
+            });
+            const remaining = jobs.filter(job => job._id !== _id);
+            setJobs(remaining)
+          }
+        })
+        
+      } else {
+        swal("Your job is safe!");
+      }
+    });
+  }
+
   return (
     <div>
       {loading ? (
@@ -64,7 +95,7 @@ const MyJob = () => {
               <td className="border border-solid border-buttonBorder">{item.salaryRange}</td>
               <td className="border border-solid border-buttonBorder"><Link to={`/updatejob/${item._id}`} ><Button>Update</Button></Link></td>
               <td className="border border-solid border-buttonBorder">
-               <Link to={`/jobDetails/${item._id}`}><Button>Delete</Button></Link>
+               <button onClick={() => handleDelete(item._id)}><Button>Delete</Button></button>
               </td>
             </tr>
           ))}
