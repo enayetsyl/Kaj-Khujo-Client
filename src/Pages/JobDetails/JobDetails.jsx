@@ -1,10 +1,14 @@
 import { useLoaderData } from "react-router-dom";
 import banner from "../../assets/jobBanner.jpg";
 import Button from "../../Component/Button";
+import Modal from "./Modal";
+import { useState } from "react";
 
 const JobDetails = () => {
   const jobInfo = useLoaderData();
-  console.log(jobInfo);
+  const [showModal, setShowModal] = useState(false)
+  const handleOnClose = () => setShowModal(false)
+    console.log(jobInfo);
   return (
     <div>
       <div className="flex justify-center items-center gap-5">
@@ -36,8 +40,11 @@ const JobDetails = () => {
        
       </div>
       <div className="flex justify-center py-20">
-      <Button>Apply Now</Button>
+     <button onClick={() => setShowModal(true)}><Button >Apply Now</Button></button> 
       </div>
+     <Modal 
+     onClose={handleOnClose}
+     visible={showModal}></Modal>
     </div>
   );
 };
