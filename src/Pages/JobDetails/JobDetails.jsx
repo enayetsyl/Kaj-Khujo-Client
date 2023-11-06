@@ -8,6 +8,12 @@ const JobDetails = () => {
   const jobInfo = useLoaderData();
   const [showModal, setShowModal] = useState(false)
   const handleOnClose = () => setShowModal(false)
+
+  const handleFormSubmit = (input1, input2, input3) => {
+    // Handle the form data here (e.g., send it to the server)
+    console.log("Form submitted with inputs:", input1, input2, input3);
+  };
+
     console.log(jobInfo);
   return (
     <div>
@@ -44,6 +50,7 @@ const JobDetails = () => {
       </div>
      <Modal 
      onClose={handleOnClose}
+     onSubmit={handleFormSubmit}
      visible={showModal}></Modal>
     </div>
   );
