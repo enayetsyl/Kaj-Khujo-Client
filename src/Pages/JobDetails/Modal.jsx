@@ -4,16 +4,21 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import swal from "sweetalert";
 
 export default function MyModal({ visible, onClose, onSubmit, jobInfo}) {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [resumeLink, setResumeLink] = useState("");
   const {user} = useContext(AuthContext)
   
   // Convert the applicationDeadline to a Date object
   const applicationDeadline = new Date(jobInfo.applicationDeadline);
 
-  const handleSubmit = () => {
-
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const resume = form.resumeLink.value;
+    const id = jobInfo._id;
+    // console.log(jobInfo)
+    const applicantInfo = {name, email, resume, id}
+    // console.log(applicantInfo)
     const currentDate = new Date();
 
     if(currentDate > applicationDeadline){
@@ -25,8 +30,8 @@ export default function MyModal({ visible, onClose, onSubmit, jobInfo}) {
       swal("Sorry", 'You cannot apply to your own job', "error");
       return;
     }
-    swal('Goog', "sofol", "success")
-    // onSubmit(name, email, resumeLink);
+    
+    onSubmit(applicantInfo);
   };
 
   const handleOnClose = (e) => {
@@ -42,13 +47,14 @@ export default function MyModal({ visible, onClose, onSubmit, jobInfo}) {
     >
       <div className="bg-white p-4 rounded w-80">
         <h2 className="text-xl font-semibold mb-2">Modal Title</h2>
+        <form   onSubmit={handleSubmit}>
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-700">Name</label>
           <input
             type="text"
+            name='name'
             defaultValue={user.displayName}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Enter your name"
+                     placeholder="Enter your name"
             className="border rounded w-full p-2"
           />
         </div>
@@ -56,10 +62,9 @@ export default function MyModal({ visible, onClose, onSubmit, jobInfo}) {
           <label className="block text-sm font-medium text-gray-700">Email</label>
           <input
             type="email"
-            
-            defaultValue={user.email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter your email"
+            name='email'
+                        defaultValue={user.email}
+                 placeholder="Enter your email"
             className="border rounded w-full p-2"
           />
         </div>
@@ -69,8 +74,7 @@ export default function MyModal({ visible, onClose, onSubmit, jobInfo}) {
           </label>
           <input
             type="text"
-            value={resumeLink}
-            onChange={(e) => setResumeLink(e.target.value)}
+            name="resumeLink"          
             placeholder="Paste your resume link"
             className="border rounded w-full p-2"
             required
@@ -78,12 +82,13 @@ export default function MyModal({ visible, onClose, onSubmit, jobInfo}) {
         </div>
         <div className="flex justify-center">
         <button
-          onClick={handleSubmit}
+        
           className=""
         >
           <Button>Submit</Button>
         </button>
         </div>
+        </form>
       </div>
     </div>
   );

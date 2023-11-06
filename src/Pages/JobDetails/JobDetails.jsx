@@ -9,12 +9,28 @@ const JobDetails = () => {
   const [showModal, setShowModal] = useState(false)
   const handleOnClose = () => setShowModal(false)
 
-  const handleFormSubmit = (name, email, resumeLink) => {
+  const handleFormSubmit = (applicantInfo) => {
     // Handle the form data here (e.g., send it to the server)
-    console.log("Form submitted with inputs:", name, email, resumeLink);
+    // console.log("Form submitted with inputs:", applicantInfo);
+    fetch('http://localhost:5000/api/v1/appliedJob', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(applicantInfo),
+    })
+      .then(response => response.json())
+      .then(data => {
+        // Handle the response from the server, e.g., show a success message
+        console.log('Response from server:', data);
+      })
+      .catch(error => {
+        // Handle any errors that occur during the request
+        console.error('Error:', error);
+      });
   };
 
-    console.log(jobInfo);
+    // console.log(jobInfo);
   return (
     <div>
       <div className="flex justify-center items-center gap-5">
