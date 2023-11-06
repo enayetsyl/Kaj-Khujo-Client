@@ -1,5 +1,5 @@
 
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { useState } from "react";
 import Button from "../../Component/Button";
 
@@ -53,7 +53,7 @@ const AllJob = () => {
               <td className="border border-solid border-buttonBorder">{item.salaryRange}</td>
               <td className="border border-solid border-buttonBorder">{item.userName}</td>
               <td className="border border-solid border-buttonBorder">
-                <Button>Details</Button>
+               <Link to={`/jobDetails/${item._id}`}><Button>Details</Button></Link>
               </td>
             </tr>
           ))}
