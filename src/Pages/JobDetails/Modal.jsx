@@ -9,12 +9,23 @@ export default function MyModal({ visible, onClose, onSubmit, jobInfo}) {
   const [resumeLink, setResumeLink] = useState("");
   const {user} = useContext(AuthContext)
   
+  // Convert the applicationDeadline to a Date object
+  const applicationDeadline = new Date(jobInfo.applicationDeadline);
 
   const handleSubmit = () => {
-    if(user.displayName === jobInfo.userName){
-      swal("Sorry", 'You cannot apply to your own job', "error")
+
+    const currentDate = new Date();
+
+    if(currentDate > applicationDeadline){
+      swal("Sorry", 'You are late', "error");
+      return;
     }
-    
+
+    if(user.displayName === jobInfo.userName){
+      swal("Sorry", 'You cannot apply to your own job', "error");
+      return;
+    }
+    swal('Goog', "sofol", "success")
     // onSubmit(name, email, resumeLink);
   };
 
