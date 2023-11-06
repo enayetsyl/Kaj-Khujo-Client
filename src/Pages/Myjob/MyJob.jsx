@@ -1,5 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
+import { Link } from "react-router-dom";
+import Button from "../../Component/Button";
 
 const MyJob = () => {
   const { user } = useContext(AuthContext);
@@ -40,11 +42,34 @@ const MyJob = () => {
         <>
           <h1>Jobs for {name}</h1>
           {/* Display the fetched jobs */}
-          <ul>
-            {jobs.map((job) => (
-              <li key={job.id}>{job.title}</li>
-            ))}
-          </ul>
+        
+
+          <table>
+        <thead>
+          <tr className="border-4 border-solid border-buttonBorder text-2xl">
+            <th className="border border-solid border-buttonBorder py-2 px-10">Job Title</th>
+            <th className="border border-solid border-buttonBorder p-2">Posting Date</th>
+            <th className="border border-solid border-buttonBorder p-2">Deadline</th>
+            <th className="border border-solid border-buttonBorder p-2">Salary Range</th>
+            <th className="border border-solid border-buttonBorder p-2">Update</th>
+            <th className="border border-solid border-buttonBorder p-5">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {jobs.map((item, index) => (
+            <tr key={index} className="text-center">
+              <td className="border border-solid border-buttonBorder px-5">{item.jobTitle}</td>
+              <td className="border border-solid border-buttonBorder">{item.postingDate}</td>
+              <td className="border border-solid border-buttonBorder">{item.applicationDeadline}</td>
+              <td className="border border-solid border-buttonBorder">{item.salaryRange}</td>
+              <td className="border border-solid border-buttonBorder"><Link to={`/updatejob/${item._id}`} ><Button>Update</Button></Link></td>
+              <td className="border border-solid border-buttonBorder">
+               <Link to={`/jobDetails/${item._id}`}><Button>Delete</Button></Link>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
         </>
       )}
     </div>

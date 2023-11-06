@@ -30,8 +30,9 @@ import JobDetails from "../Pages/JobDetails/JobDetails";
         element:<PrivateRoute><AddJob></AddJob></PrivateRoute>
       },
       {
-        path: '/updatejob',
-        element:<PrivateRoute><UpdateJob></UpdateJob></PrivateRoute>
+        path: '/updatejob/:id',
+        element:<PrivateRoute><UpdateJob></UpdateJob></PrivateRoute>,
+        loader: ({params}) => fetch(`http://localhost:5000/api/v1/jobs/${params.id}`)
       },
       {
         path: '/login',

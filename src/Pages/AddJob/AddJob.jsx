@@ -105,10 +105,10 @@ function AddJob() {
         <div className='w-full flex justify-start items-center gap-5'>
           <label className='w-1/4 border border-buttonBorder p-4 text-black text-xl font-bold'>Job Category:</label>
           <select name="jobCategory" className='w-3/4 p-4'>
-            <option value="onSite" className='p-4'>On Site</option>
-            <option value="remote">Remote</option>
-            <option value="partTime" className='p-4'>Part-Time</option>
-            <option value="hybrid" className='p-4'>Hybrid</option>
+            <option value="OnSite" className='p-4'>OnSite</option>
+            <option value="Remote">Remote</option>
+            <option value="Part-Time" className='p-4'>Part-Time</option>
+            <option value="Hybrid" className='p-4'>Hybrid</option>
           </select>
         </div>
 
