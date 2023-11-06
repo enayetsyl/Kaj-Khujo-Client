@@ -9,9 +9,9 @@ const JobDetails = () => {
   const [showModal, setShowModal] = useState(false)
   const handleOnClose = () => setShowModal(false)
 
-  const handleFormSubmit = (input1, input2, input3) => {
+  const handleFormSubmit = (name, email, resumeLink) => {
     // Handle the form data here (e.g., send it to the server)
-    console.log("Form submitted with inputs:", input1, input2, input3);
+    console.log("Form submitted with inputs:", name, email, resumeLink);
   };
 
     console.log(jobInfo);
@@ -51,7 +51,9 @@ const JobDetails = () => {
      <Modal 
      onClose={handleOnClose}
      onSubmit={handleFormSubmit}
-     visible={showModal}></Modal>
+     visible={showModal}
+     jobInfo={jobInfo}
+     ></Modal>
     </div>
   );
 };

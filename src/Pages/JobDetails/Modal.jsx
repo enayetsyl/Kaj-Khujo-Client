@@ -1,15 +1,21 @@
-import { useState } from "react";
+import { useContext,  useState } from "react";
 import Button from "../../Component/Button";
+import { AuthContext } from "../../Provider/AuthProvider";
+import swal from "sweetalert";
 
-export default function MyModal({ visible, onClose, onSubmit }) {
+export default function MyModal({ visible, onClose, onSubmit, jobInfo}) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [resumeLink, setResumeLink] = useState("");
+  const {user} = useContext(AuthContext)
+  
 
   const handleSubmit = () => {
-    // You can perform any action you need with the input values here.
-    // Call the onSubmit function with the input values as parameters.
-    onSubmit(name, email, resumeLink);
+    if(user.displayName === jobInfo.userName){
+      swal("Sorry", 'You cannot apply to your own job', "error")
+    }
+    
+    // onSubmit(name, email, resumeLink);
   };
 
   const handleOnClose = (e) => {
@@ -29,7 +35,7 @@ export default function MyModal({ visible, onClose, onSubmit }) {
           <label className="block text-sm font-medium text-gray-700">Name</label>
           <input
             type="text"
-            value={name}
+            defaultValue={user.displayName}
             onChange={(e) => setName(e.target.value)}
             placeholder="Enter your name"
             className="border rounded w-full p-2"
@@ -39,7 +45,8 @@ export default function MyModal({ visible, onClose, onSubmit }) {
           <label className="block text-sm font-medium text-gray-700">Email</label>
           <input
             type="email"
-            value={email}
+            
+            defaultValue={user.email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your email"
             className="border rounded w-full p-2"
@@ -55,6 +62,7 @@ export default function MyModal({ visible, onClose, onSubmit }) {
             onChange={(e) => setResumeLink(e.target.value)}
             placeholder="Paste your resume link"
             className="border rounded w-full p-2"
+            required
           />
         </div>
         <div className="flex justify-center">
