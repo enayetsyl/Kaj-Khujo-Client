@@ -3,6 +3,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Button from '../../Component/Button';
 import { AuthContext } from '../../Provider/AuthProvider';
+import swal from 'sweetalert';
 
 function AddJob() {
 
@@ -23,7 +24,24 @@ function AddJob() {
       applicants: e.target.jobApplicantsNumber.value,
       category: e.target.jobCategory.value,
     };
-    console.log(jobData)
+    
+    fetch('http://localhost:5000/api/v1/addjob', {
+      method:'POST',
+      headers:{
+        'content-type':'application/json'
+      },
+      body: JSON.stringify(jobData)
+    })
+    .then(res => res.json())
+    .then (data => {
+      console.log(data)
+      if(data.message === 'Job Added Successfully'){
+        swal('Congratulation', "Your Job Added Successfully", "success")
+      }else{
+        swal('Something Wrong', "Try again", "error")
+      }
+    })
+
   }
 
   return (
