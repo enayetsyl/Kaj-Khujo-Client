@@ -125,7 +125,7 @@ const [applicationDeadline, setApplicationDeadline] = useState(jobInfo.applicati
         </div>
 
         <div className='w-full flex justify-center items-center gap-5 pt-10'>
-          <button type="submit"><Button>Update</Button></button>
+          <span type="submit"><Button>Update</Button></span>
         </div>
       </form>
     </div>

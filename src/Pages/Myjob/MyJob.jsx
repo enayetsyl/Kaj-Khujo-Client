@@ -95,7 +95,7 @@ const MyJob = () => {
               <td className="border border-solid border-buttonBorder">{item.salaryRange}</td>
               <td className="border border-solid border-buttonBorder"><Link to={`/updatejob/${item._id}`} ><Button>Update</Button></Link></td>
               <td className="border border-solid border-buttonBorder">
-               <button onClick={() => handleDelete(item._id)}><Button>Delete</Button></button>
+               <span onClick={() => handleDelete(item._id)}><Button>Delete</Button></span>
               </td>
             </tr>
           ))}

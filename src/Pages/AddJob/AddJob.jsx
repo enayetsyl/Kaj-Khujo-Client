@@ -106,14 +106,14 @@ function AddJob() {
           <label className='w-1/4 border border-buttonBorder p-4 text-black text-xl font-bold'>Job Category:</label>
           <select name="jobCategory" className='w-3/4 p-4'>
             <option value="OnSite" className='p-4'>OnSite</option>
-            <option value="Remote">Remote</option>
+            <option value="Remote" className='p-4'>Remote</option>
             <option value="Part-Time" className='p-4'>Part-Time</option>
             <option value="Hybrid" className='p-4'>Hybrid</option>
           </select>
         </div>
 
         <div className='w-full flex justify-center items-center gap-5 pt-10'>
-          <button type="submit"><Button>Submit</Button></button>
+          <span type="submit"><Button>Submit</Button></span>
         </div>
       </form>
     </div>

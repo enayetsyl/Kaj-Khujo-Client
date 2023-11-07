@@ -81,12 +81,12 @@ export default function MyModal({ visible, onClose, onSubmit, jobInfo}) {
           />
         </div>
         <div className="flex justify-center">
-        <button
+        <span
         
           className=""
         >
           <Button>Submit</Button>
-        </button>
+        </span>
         </div>
         </form>
       </div>

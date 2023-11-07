@@ -3,6 +3,7 @@ import banner from "../../assets/jobBanner.jpg";
 import Button from "../../Component/Button";
 import Modal from "./Modal";
 import { useState } from "react";
+import swal from "sweetalert";
 
 const JobDetails = () => {
   const jobInfo = useLoaderData();
@@ -23,6 +24,7 @@ const JobDetails = () => {
       .then(data => {
         // Handle the response from the server, e.g., show a success message
         console.log('Response from server:', data);
+        swal('success', `${data.message}`, 'success')
       })
       .catch(error => {
         // Handle any errors that occur during the request
@@ -62,7 +64,7 @@ const JobDetails = () => {
        
       </div>
       <div className="flex justify-center py-20">
-     <button onClick={() => setShowModal(true)}><Button >Apply Now</Button></button> 
+     <span onClick={() => setShowModal(true)}><Button >Apply Now</Button></span> 
       </div>
      <Modal 
      onClose={handleOnClose}
