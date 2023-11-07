@@ -46,7 +46,7 @@ function AddJob() {
 
   return (
     <div>
-      <h2>Add a Job</h2>
+      <h2 className="text-headingText text-5xl font-bold pb-5 text-center">Add a Job</h2>
       <form onSubmit={handleSubmit}> 
         <div className='w-full flex justify-center items-center gap-5'>
           <label className='w-1/4 border border-buttonBorder p-4 text-black text-xl font-bold'>Job Title:</label>

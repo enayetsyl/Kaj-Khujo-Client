@@ -66,16 +66,17 @@ const MyJob = () => {
   }
 
   return (
-    <div>
+    <div >
       {loading ? (
         <p>Loading...</p> // Display a loading message or spinner
       ) : (
         <>
-          <h1>Jobs for {name}</h1>
+          <h1 className="text-headingText text-5xl font-bold pb-5 text-center">{name} your Posted Job</h1>
           {/* Display the fetched jobs */}
         
 
-          <table>
+      <div className="flex justify-center items-center">
+      <table>
         <thead>
           <tr className="border-4 border-solid border-buttonBorder text-2xl">
             <th className="border border-solid border-buttonBorder py-2 px-10">Job Title</th>
@@ -90,17 +91,18 @@ const MyJob = () => {
           {jobs.map((item, index) => (
             <tr key={index} className="text-center">
               <td className="border border-solid border-buttonBorder px-5">{item.jobTitle}</td>
-              <td className="border border-solid border-buttonBorder">{item.postingDate}</td>
-              <td className="border border-solid border-buttonBorder">{item.applicationDeadline}</td>
-              <td className="border border-solid border-buttonBorder">{item.salaryRange}</td>
-              <td className="border border-solid border-buttonBorder"><Link to={`/updatejob/${item._id}`} ><Button>Update</Button></Link></td>
-              <td className="border border-solid border-buttonBorder">
+              <td className="border border-solid border-buttonBorder px-5">{new Date(item.postingDate).toDateString()}</td>
+              <td className="border border-solid border-buttonBorder px-5">{new Date(item.applicationDeadline).toDateString()}</td>
+              <td className="border border-solid border-buttonBorder px-5">{item.salaryRange}</td>
+              <td className="border border-solid border-buttonBorder px-5"><Link to={`/updatejob/${item._id}`} ><Button>Update</Button></Link></td>
+              <td className="border border-solid border-buttonBorder px-5">
                <span onClick={() => handleDelete(item._id)}><Button>Delete</Button></span>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      </div>
         </>
       )}
     </div>

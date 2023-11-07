@@ -44,7 +44,7 @@ const AppliedJob = () => {
 
   return (
     <div>
-      <h1 className="text-headingText text-5xl font-bold pb-5 text-center">Applied job</h1>
+      <h1 className="text-headingText text-5xl font-bold pb-5 text-center">Your Applied job</h1>
      
       <div>
       <div className="py-5 border border-buttonBorder mb-5 text-center">

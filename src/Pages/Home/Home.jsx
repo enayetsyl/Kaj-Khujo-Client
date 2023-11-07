@@ -1,10 +1,10 @@
 import Logo from "../../Component/Logo";
+import Review from "../../Component/Review";
 
 const Home = () => {
   return (
     <div>
-      this is home    
-      <Logo></Logo>  
+     <Review></Review>
     </div>
   );
 };
