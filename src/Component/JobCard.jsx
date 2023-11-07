@@ -6,7 +6,7 @@ import swal from "sweetalert";
 
 const JobCard = ({job}) => {
   const {user } = useContext(AuthContext)
-  console.log(user)
+  // console.log(user)
 
 
 

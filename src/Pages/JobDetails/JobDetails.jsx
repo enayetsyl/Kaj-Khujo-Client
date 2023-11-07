@@ -26,8 +26,6 @@ const JobDetails = () => {
         // Handle the response from the server, e.g., show a success message
         console.log('Response from server:', data);
         swal('success', `${data.message}`, 'success')
-       
-        
       })
       .catch(error => {
         // Handle any errors that occur during the request
@@ -51,6 +49,7 @@ const JobDetails = () => {
       </h1>
       <div className="flex justify-between items-center border border-buttonBorder py-20">
         <div className="w-3/4">
+          <h1 className="text-xl font-bold text-black pb-3">Job Description</h1>
           <p>{jobInfo.jobDescription}</p>
         </div>
         <div className="w-1/4">

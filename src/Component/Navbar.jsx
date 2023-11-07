@@ -6,7 +6,9 @@ import { AuthContext } from "../Provider/AuthProvider";
 
 const Navbar = () => {
   const { user, userName, logOut } = useContext(AuthContext);
-
+  const photoURL = user ? user.photoURL : null;
+  console.log(photoURL)
+  
   const fullNavItems = (
     <>
       <li>
@@ -27,6 +29,7 @@ const Navbar = () => {
       <li>
         <Link to={"/addjob"}>Add a Job</Link>
       </li>
+      <li><img src="" alt="" /></li>
     </>
   );
   const shortNavItems = (
@@ -92,6 +95,11 @@ const Navbar = () => {
                 </Link>
               </div>
             )}
+            {photoURL && (
+                <div>
+                  <img src={photoURL} alt="User Profile" className="h-16 w-16 rounded-full ml-2"/>
+                </div>
+              )}
             </div>
           </div>
         </div>
