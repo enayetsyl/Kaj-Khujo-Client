@@ -1,7 +1,8 @@
-import { useContext, useEffect, useState, useRef } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { usePDF } from 'react-to-pdf';
-// import { useReactToPdf } from "react-to-pdf";
+import loadingImage from '../../assets/loading.gif'
+import Button from "../../Component/Button";
 
 const AppliedJob = () => {
   const { user } = useContext(AuthContext);
@@ -12,17 +13,7 @@ const AppliedJob = () => {
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("");
   const { toPDF, targetRef } = usePDF({filename: 'page.pdf'});
-  // const componentRef = useRef();
-  
-  // const { toPdf } = useReactToPdf(); // Use the hook to get the toPdf function
 
-  // const handleGeneratePDF = async () => {
-  //   const options = {
-  //     orientation: "landscape", // Set the PDF orientation if needed
-  //   };
-
-  //   toPdf(componentRef, options); // Use the toPdf function to generate the PDF
-  // };
   useEffect(() => {
     // Define an async function to fetch data
     const fetchData = async () => {
@@ -77,7 +68,9 @@ const AppliedJob = () => {
       </div>
 
       {loading ? (
-        <p>Loading...</p> 
+       <div className="flex justify-center items-center">
+         <img src={loadingImage} alt="" className="h-screen"/> 
+       </div>
       ) : 
       (
         <table ref={targetRef}>
@@ -112,11 +105,13 @@ const AppliedJob = () => {
       </table>
       )
       }
-
-      
-
     </div>
-    <button onClick={() => toPDF()} className="btn btn-accent">Generate PDF</button> 
+ <div className="flex justify-center items-center py-10">
+  <span onClick={() => toPDF()}>
+  <Button>Generate PDF</Button>
+  </span>
+
+ </div>
     </div>
   );
 };

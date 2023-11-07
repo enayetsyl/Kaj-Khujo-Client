@@ -14,11 +14,16 @@ import AppliedJob from "../Pages/AppliedJob/AppliedJob";
 import Blogs from "../Pages/Blogs/Blogs";
 import PrivateRoute from "./PrivateRoute";
 import JobDetails from "../Pages/JobDetails/JobDetails";
+import DynamicTitle from "../Component/DynamicTitle";
+ 
 
  const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainLayout></MainLayout>,
+    element: <>
+    <DynamicTitle />
+    <MainLayout></MainLayout>
+    </>,
     errorElement: <Error></Error>,
     children:[
       {
