@@ -4,6 +4,7 @@ import Button from "../../Component/Button";
 import Modal from "./Modal";
 import { useState } from "react";
 import swal from "sweetalert";
+import emailjs from 'emailjs-com';
 
 const JobDetails = () => {
   const jobInfo = useLoaderData();
@@ -12,7 +13,7 @@ const JobDetails = () => {
 
   const handleFormSubmit = (applicantInfo) => {
     // Handle the form data here (e.g., send it to the server)
-    // console.log("Form submitted with inputs:", applicantInfo);
+    console.log("Form submitted with inputs:", applicantInfo);
     fetch('http://localhost:5000/api/v1/appliedJob', {
       method: 'POST',
       headers: {
@@ -25,6 +26,8 @@ const JobDetails = () => {
         // Handle the response from the server, e.g., show a success message
         console.log('Response from server:', data);
         swal('success', `${data.message}`, 'success')
+       
+        
       })
       .catch(error => {
         // Handle any errors that occur during the request

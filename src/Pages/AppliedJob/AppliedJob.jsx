@@ -1,15 +1,28 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
+import { usePDF } from 'react-to-pdf';
+// import { useReactToPdf } from "react-to-pdf";
 
 const AppliedJob = () => {
   const { user } = useContext(AuthContext);
   const userName = user.displayName;
-  console.log(userName)
+  // console.log(userName)
   const [jobs, setJobs] = useState([]);
-  console.log(jobs)
+  // console.log(jobs)
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const { toPDF, targetRef } = usePDF({filename: 'page.pdf'});
+  // const componentRef = useRef();
+  
+  // const { toPdf } = useReactToPdf(); // Use the hook to get the toPdf function
 
+  // const handleGeneratePDF = async () => {
+  //   const options = {
+  //     orientation: "landscape", // Set the PDF orientation if needed
+  //   };
+
+  //   toPdf(componentRef, options); // Use the toPdf function to generate the PDF
+  // };
   useEffect(() => {
     // Define an async function to fetch data
     const fetchData = async () => {
@@ -43,10 +56,10 @@ const AppliedJob = () => {
   });
 
   return (
-    <div>
+    <div >
       <h1 className="text-headingText text-5xl font-bold pb-5 text-center">Your Applied job</h1>
      
-      <div>
+      <div >
       <div className="py-5 border border-buttonBorder mb-5 text-center">
       <label className="font-bold text-xl text-black pr-5 ">Filter by Category:</label>
         <select
@@ -67,7 +80,7 @@ const AppliedJob = () => {
         <p>Loading...</p> 
       ) : 
       (
-        <table>
+        <table ref={targetRef}>
         <thead>
           <tr className="border-4 border-solid border-buttonBorder text-2xl">
             <th className="border border-solid border-buttonBorder py-2 px-10">Job Title</th>
@@ -103,6 +116,7 @@ const AppliedJob = () => {
       
 
     </div>
+    <button onClick={() => toPDF()} className="btn btn-accent">Generate PDF</button> 
     </div>
   );
 };
