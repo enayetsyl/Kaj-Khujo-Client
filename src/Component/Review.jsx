@@ -5,7 +5,8 @@ import image3 from '../assets/review-image-3.jpg'
 const Review = () => {
   return (
    <>
-  <div className="grid grid-cols-1 lg:grid-cols-3">
+  <div className='flex justify-center items-center'>
+  <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
     {/* first card */}
     <div className="w-96 h-96 bg-gray-200 relative">
     <p className="text-center text-7xl font-black opacity-20">Feedback</p>
@@ -42,6 +43,7 @@ const Review = () => {
       <p className="uppercase text-black font-black text-center">Usman <span className="text-white">Affan</span></p>
     </div>
    </div>
+  </div>
   </div>
    </>
   );
