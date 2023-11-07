@@ -1,5 +1,6 @@
 // Tab.js
 import { useState, useEffect } from 'react';
+import JobCard from './JobCard';
 
 const Tab = () => {
   const [activeTab, setActiveTab] = useState('All'); // 'all' is the default tab
@@ -42,18 +43,9 @@ const Tab = () => {
           </button>
         ))}
       </div>
-      <div>
+      <div className='my-5'>
         {jobs.map((job) => (
-          <div 
-          className="border border-buttonBorder p-10"
-          key={job._id} >
-            <p>User: {job.userName}</p>
-            <p>Job Title: {job.jobTitle}</p>
-            <p>Posting Date: {job.postingDate}</p>
-            <p>Application Deadline: {job.applicationDeadline}</p>
-            <p>Applicants Number: {job.applicants}</p>
-            <button>View Details</button>
-          </div>
+         <JobCard key={job._id} job={job}></JobCard>
         ))}
       </div>
     </div>
