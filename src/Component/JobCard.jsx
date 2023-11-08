@@ -1,11 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import Button from "./Button";
 import { AuthContext } from "../Provider/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import swal from "sweetalert";
 
 const JobCard = ({job}) => {
   const {user } = useContext(AuthContext)
+  const location = useLocation();
   // console.log(user)
 
 
@@ -13,7 +14,7 @@ const JobCard = ({job}) => {
   return (
     <div>
        <div 
-          className="border border-buttonBorder p-10 space-y-4 my-5"
+          className="border border-buttonBorder p-10 space-y-4 my-5 bg-[#e0e0e0]"
            >
             <div className="lg:flex justify-between items-center font-bold text-xl space-y-4">
             <p>Employer: {job.userName}</p>
@@ -23,7 +24,10 @@ const JobCard = ({job}) => {
               <p>Posting Date: {job.postingDate}</p>
             <p>Application Deadline: {job.applicationDeadline}</p>
             </div>
-            <p className="font-bold text-xl pb-5">Applicants Number: {job.applicants}</p>
+            <div className="lg:flex justify-between items-center font-bold text-xl space-y-4 pb-5">
+            <p className="font-bold text-xl ">Applicants Number: {job.applicants}</p>
+            <p className="font-bold text-xl ">Salary Range: {job.salaryRange}</p>
+            </div>
           
           
             <span className="text-center">
@@ -34,10 +38,11 @@ const JobCard = ({job}) => {
           ) : (
             <span  onClick={() => {
               swal("Sorry", "You have to log in to see job details", "error");
+             
             }}>
-              <Button >
-              View Details
-            </Button>
+              <Link to="/login">
+                <Button>View Details</Button>
+              </Link>
             </span>
           )}
         </span>

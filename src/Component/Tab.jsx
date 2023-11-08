@@ -19,9 +19,9 @@ const Tab = () => {
   const tabs = ['All', 'OnSite', 'Remote', 'Part-Time', 'Hybrid'];
 
   const tabButtonStyle = {
-    padding: '10px',
+    padding: '20px',
     margin: '5px',
-    backgroundColor: '#3498db',
+    backgroundColor: '#0074e4',
     color: 'white',
     cursor: 'pointer',
   };
@@ -35,7 +35,7 @@ const Tab = () => {
             onClick={() => setActiveTab(tab)}
             style={{
               ...tabButtonStyle,
-              backgroundColor: activeTab === tab ? '#3498db' : '',
+              backgroundColor: activeTab === tab ? '#0074e4' : '',
               color: activeTab === tab ? 'white' : '',
             }}
           >

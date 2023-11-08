@@ -7,7 +7,7 @@ import swal from "sweetalert";
 
 const Login = () => {
 
-    const {loading, setUserName, setUserPhoto, user, signInUser, googleSignIn} = useContext(AuthContext)
+    const {loading, setUserName, setUserPhoto, user, signInUser, googleSignIn, setUser} = useContext(AuthContext)
 
   const location = useLocation();
   const nevigate = useNavigate()
@@ -32,12 +32,37 @@ const Login = () => {
     })
   }
 
+  // handle google signin starts
+
+  const handleGoogleSignIn = e => {
+    e.preventDefault();
+    googleSignIn()
+    .then(res => {
+      console.log(res.user)
+      if(res.user){
+        swal('Ovinondon', "Your Login Successful", "success")
+        setUserName(res.user.displayName)
+        setUserPhoto(res.user.photoURL)
+        setUser(res.user)
+        nevigate(location?.state ? location.state : '/')
+      }
+    })
+    .catch(err => {
+      if(err){
+        swal("Sorry", `$(error.message)`, 'error')
+      }
+    })
+
+  }  
+
+  // handle google sing in end
+
   return (
     <>
       <div className="flex justify-center items-center">
         <div className="">
           <div className=" w-full shadow-2xl bg-base-100">
-            <form className="px-16 py-8" onSubmit={handleLogin}>
+            <form className="px-16 pt-8" onSubmit={handleLogin}>
               <div className="">
                 <label className="label">
                   <span className="label-text text-black">Email</span>
@@ -68,14 +93,14 @@ const Login = () => {
              <div>
               <hr className="mt-5" />
             <p className="text-center py-2">Or</p>
-            <div className="flex justify-center items-center gap-1">
+             </div>
+            </form>
+            <div className="flex justify-center items-center gap-1 pb-3 cursor-pointer" onClick={handleGoogleSignIn}>
             <p>Login with</p>
             <div className="text-2xl">
             <FcGoogle></FcGoogle>
             </div>
             </div>
-             </div>
-            </form>
             <p className="text-center pb-10">
               Do not have account
               <span className="text-[#0000ff] font-bold">

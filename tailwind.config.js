@@ -20,7 +20,7 @@ export default {
       },
       backgroundColor: {
         body: '#f5f5f5',
-        footer:'#f5f5f5',
+        footer:'#e0e0e0',
         navbar: '#e0e0e0',
         modal:'rgba(0,0,0,0.5)',
         logo:'#f5f5f5',
