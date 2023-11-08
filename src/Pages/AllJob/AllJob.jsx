@@ -1,11 +1,27 @@
 
 import { Link, useLoaderData } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../../Component/Button";
 
 const AllJob = () => {
   const allJobs = useLoaderData();
   console.log(allJobs)
+  // const [allJobs, setAllJobs] = useState([]);
+
+  // useEffect(() => {
+  //   // Fetch data when the component mounts
+  //   fetch('https://kaj-khujo-server.vercel.app/api/v1/jobs', {
+  //     credentials: 'include', // Include credentials if necessary
+  //   })
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       setAllJobs(data); // Update state with the fetched data
+  //     })
+  //     .catch(error => {
+  //       console.error('Error:', error);
+  //     });
+  // }, []); // The empty dependency array ensures this effect runs only once when the component mounts
+
   const [searchJobTitle, setSearchJobTitle] = useState("");
   const [filteredJobs, setFilteredJobs] = useState(allJobs); 
 

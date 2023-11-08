@@ -38,7 +38,7 @@ console.log(user)
     }
 
 
-    axios.put(`http://localhost:5000/api/v1/updatejob/${jobInfo._id}`, updatedData, {
+    axios.put(`https://kaj-khujo-server.vercel.app/api/v1/updatejob/${jobInfo._id}`, updatedData, {
   headers: {
     'Content-Type': 'application/json',
   },
@@ -56,7 +56,7 @@ console.log(user)
     console.error('Error:', error);
   });
 
-    // fetch(`http://localhost:5000/api/v1/updatejob/${jobInfo._id}`, {
+    // fetch(`https://kaj-khujo-server.vercel.app/api/v1/updatejob/${jobInfo._id}`, {
     //   method:'PUT',
     //   headers:{
     //     'content-type':'application/json'
@@ -86,7 +86,7 @@ console.log(user)
 
         <div className='w-full flex justify-center items-center gap-2 lg:gap-5 py-5'>
           <label  className='w-1/4 border border-buttonBorder p-1 lg:p-4 text-black text-xl font-bold'>Picture URL of Job Banner:</label>
-          <input type="text" name="jobBannerURL" className='w-3/4 p-4' required defaultValue={jobInfo.jobBanner}/>
+          <input type="text" name="jobBannerURL" className='w-3/4 p-4' required value={jobInfo.jobBanner}/>
         </div>
 
         <div className='w-full flex justify-center items-center gap-2 lg:gap-5'>

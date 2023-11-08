@@ -17,7 +17,7 @@ const MyJob = () => {
     // Define an async function to fetch data
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/v1/jobs?userName=${name}`);
+        const response = await fetch(`https://kaj-khujo-server.vercel.app/api/v1/jobs?userName=${name}`);
 
         if (response.ok) {
           const data = await response.json();
@@ -46,7 +46,7 @@ const MyJob = () => {
     })
     .then((willDelete) => {
       if (willDelete) {
-        fetch(`http://localhost:5000/api/v1/jobs/delete/${_id}`, {
+        fetch(`https://kaj-khujo-server.vercel.app/api/v1/jobs/delete/${_id}`, {
           method: 'DELETE'
         })
         .then(res => res.json())
@@ -93,7 +93,7 @@ const MyJob = () => {
         <tbody>
           {jobs.map((item, index) => (
             <tr key={index} className="text-center">
-              <td className="border border-solid border-buttonBorder lg:px-5 text-xs">{item.jobTitle}</td>
+              <td className="border border-solid border-buttonBorder lg:px-5 ">{item.jobTitle}</td>
               <td className="border border-solid border-buttonBorder lg:px-5">{new Date(item.postingDate).toDateString()}</td>
               <td className="border border-solid border-buttonBorder lg:px-5">{new Date(item.applicationDeadline).toDateString()}</td>
               <td className="border border-solid border-buttonBorder lg:px-5">{item.salaryRange}</td>

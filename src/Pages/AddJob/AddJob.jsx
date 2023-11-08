@@ -22,14 +22,14 @@ function AddJob() {
       jobDescription: e.target.jobDescription.value,
       postingDate: jobPostingDate,
       applicationDeadline: applicationDeadline,
-      applicants: e.target.jobApplicantsNumber.value,
+      applicants: parseInt(e.target.jobApplicantsNumber.value, 10),
       category: e.target.jobCategory.value,
       email: user.email,
     };
     
   
 
-axios.post('http://localhost:5000/api/v1/addjob', jobData, {
+axios.post('https://kaj-khujo-server.vercel.app/api/v1/addjob', jobData, {
   headers: {
     'Content-Type': 'application/json',
   },
