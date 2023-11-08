@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import swal from "sweetalert";
 
 const JobCard = ({job}) => {
-  const {user } = useContext(AuthContext)
+  const {user } = useContext(AuthContext) || {}
   
   return (
     <div>

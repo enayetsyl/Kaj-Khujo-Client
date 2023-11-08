@@ -5,9 +5,10 @@ import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import swal from "sweetalert";
 
+
 const Login = () => {
 
-    const {loading, setUserName, setUserPhoto, user, signInUser, googleSignIn, setUser} = useContext(AuthContext)
+    const {loading, setUserName, setUserPhoto, user, signInUser, googleSignIn, setUser} = useContext(AuthContext) || {}
 
   const location = useLocation();
   const nevigate = useNavigate()
@@ -22,7 +23,7 @@ const Login = () => {
     signInUser(email, password)
     .then(res => {
       console.log(res.user)
-      swal('Ovinondon', "Your Login Successful", "success")
+          swal('Ovinondon', "Your Login Successful", "success")
       nevigate(location?.state ? location.state : '/')
     })
     .catch(err => {
@@ -40,6 +41,7 @@ const Login = () => {
     .then(res => {
       console.log(res.user)
       if(res.user){
+        
         swal('Ovinondon', "Your Login Successful", "success")
         setUserName(res.user.displayName)
         setUserPhoto(res.user.photoURL)
@@ -49,7 +51,7 @@ const Login = () => {
     })
     .catch(err => {
       if(err){
-        swal("Sorry", `$(error.message)`, 'error')
+        swal("Sorry", `$(err.message)`, 'error')
       }
     })
 

@@ -36,7 +36,7 @@ const JobDetails = () => {
     // console.log(jobInfo);
   return (
     <div>
-      <div className="flex justify-center items-center gap-5">
+      <div className="flex flex-col lg:flex-row justify-center items-center gap-5">
         <img src={banner} alt="" className=" h-[50vh]" />
         <h1 className="text-headingText font-bold text-5xl">
           WE are HIRING from =>{" "}

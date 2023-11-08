@@ -4,6 +4,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Button from '../../Component/Button';
 import { AuthContext } from '../../Provider/AuthProvider';
 import swal from 'sweetalert';
+import axios from 'axios';
 
 function AddJob() {
 
@@ -23,24 +24,28 @@ function AddJob() {
       applicationDeadline: applicationDeadline,
       applicants: e.target.jobApplicantsNumber.value,
       category: e.target.jobCategory.value,
+      email: user.email,
     };
     
-    fetch('http://localhost:5000/api/v1/addjob', {
-      method:'POST',
-      headers:{
-        'content-type':'application/json'
-      },
-      body: JSON.stringify(jobData)
-    })
-    .then(res => res.json())
-    .then (data => {
-      console.log(data)
-      if(data.message === 'Job Added Successfully'){
-        swal('Congratulation', "Your Job Added Successfully", "success")
-      }else{
-        swal('Something Wrong', "Try again", "error")
-      }
-    })
+  
+
+axios.post('http://localhost:5000/api/v1/addjob', jobData, {
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  withCredentials: true // Include credentials
+})
+.then(response => {
+  console.log(response.data);
+  if (response.data.message === 'Job Added Successfully') {
+    swal('Congratulations', 'Your Job Added Successfully', 'success');
+  } else {
+    swal('Something Wrong', 'Try again', 'error');
+  }
+})
+.catch(error => {
+  console.error(error);
+});
 
   }
 
@@ -49,34 +54,34 @@ function AddJob() {
       <h2 className="text-headingText text-5xl font-bold pb-5 text-center">Add a Job</h2>
       <form onSubmit={handleSubmit}> 
         <div className='w-full flex justify-center items-center gap-5'>
-          <label className='w-1/4 border border-buttonBorder p-4 text-black text-xl font-bold'>Job Title:</label>
+          <label className='w-1/4 border border-buttonBorder p-1 lg:p-4 text-black text-xl font-bold'>Job Title:</label>
           <input type="text" name="jobTitle" className='w-3/4 p-4' required/>
         </div>
 
         <div className='w-full flex justify-center items-center gap-5 py-5'>
-          <label  className='w-1/4 border border-buttonBorder p-4 text-black text-xl font-bold'>Picture URL of Job Banner:</label>
+          <label  className='w-1/4 border border-buttonBorder p-1 lg:p-4 text-black text-xl font-bold'>Picture URL of Job Banner:</label>
           <input type="text" name="jobBannerURL" className='w-3/4 p-4' required/>
         </div>
 
         <div className='w-full flex justify-center items-center gap-5'>
-          <label className='w-1/4 border border-buttonBorder p-4 text-black text-xl font-bold'>Logged In User Name:</label>
+          <label className='w-1/4 border border-buttonBorder p-1 lg:p-4 text-black text-xl font-bold'>Logged In User Name:</label>
           <input type="text" name="loggedInUserName" 
           defaultValue={user.displayName}
           className='w-3/4 p-4' required/>
         </div>
 
         <div className='w-full flex justify-center items-center gap-5 py-5'>
-          <label className='w-1/4 border border-buttonBorder p-4 text-black text-xl font-bold'>Salary Range:</label>
+          <label className='w-1/4 border border-buttonBorder p-1 lg:p-4 text-black text-xl font-bold'>Salary Range:</label>
           <input type="text" name="salaryRange" className='w-3/4 p-4' required/>
         </div>
 
         <div className='w-full flex justify-center items-center gap-5'>
-          <label className='w-1/4 border border-buttonBorder p-4 text-black text-xl font-bold'>Job Description:</label>
+          <label className='w-1/4 border border-buttonBorder p-1 lg:p-4 text-black text-xl font-bold'>Job Detail:</label>
           <textarea name="jobDescription" className='w-3/4 p-4' required></textarea >
         </div>
 
         <div className='w-full flex justify-start items-center gap-5 py-5'> 
-          <label className='w-1/4 border border-buttonBorder p-4 text-black text-xl font-bold'>Job Posting Date:</label>
+          <label className='w-1/4 border border-buttonBorder p-1 lg:p-4 text-black text-xl font-bold'>Job Posting Date:</label>
           <DatePicker selected={jobPostingDate}
           onChange={(date) => setJobPostingDate(date)}
           name='jobPostingDate'
@@ -86,7 +91,7 @@ function AddJob() {
         </div>
 
         <div className='w-full flex justify-start items-center gap-5'>
-          <label className='w-1/4 border border-buttonBorder p-4 text-black text-xl font-bold'>Application Deadline:</label>
+          <label className='w-1/4 border border-buttonBorder p-1 lg:p-4 text-black text-xl font-bold'>Submit Deadline:</label>
          <DatePicker
          selected={applicationDeadline}
          onChange={(date) => setApplicationDeadline(date)}
@@ -96,14 +101,14 @@ function AddJob() {
         </div>
 
         <div className='w-full flex justify-center items-center gap-5 py-5'>
-          <label className='w-1/4 border border-buttonBorder p-4 text-black text-xl font-bold'>Job Applicants Number:</label>
+          <label className='w-1/4 border border-buttonBorder p-1 lg:p-4 text-black text-xl font-bold'>People Applied:</label>
           <input type="number" name="jobApplicantsNumber" 
           defaultValue={0}
           className='w-3/4 p-4' required/>
         </div>
 
         <div className='w-full flex justify-start items-center gap-5'>
-          <label className='w-1/4 border border-buttonBorder p-4 text-black text-xl font-bold'>Job Category:</label>
+          <label className='w-1/4 border border-buttonBorder p-1 lg:p-4 text-black text-xl font-bold'>Job Category:</label>
           <select name="jobCategory" className='w-3/4 p-4'>
             <option value="OnSite" className='p-4'>OnSite</option>
             <option value="Remote" className='p-4'>Remote</option>

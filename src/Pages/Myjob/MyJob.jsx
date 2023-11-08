@@ -3,6 +3,7 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import { Link } from "react-router-dom";
 import Button from "../../Component/Button";
 import swal from "sweetalert";
+import loadingImage from '../../assets/loading.gif'
 
 const MyJob = () => {
   const { user } = useContext(AuthContext);
@@ -68,35 +69,37 @@ const MyJob = () => {
   return (
     <div >
       {loading ? (
-        <p>Loading...</p> // Display a loading message or spinner
+        <div className="flex justify-center items-center">
+        <img src={loadingImage} alt="" className="h-screen"/> 
+      </div>
       ) : (
         <>
-          <h1 className="text-headingText text-5xl font-bold pb-5 text-center">{name} your Posted Job</h1>
+          <h1 className="text-headingText text-xl lg:text-5xl font-bold pb-5 text-center">{name} your Posted Job</h1>
           {/* Display the fetched jobs */}
         
 
       <div className="flex justify-center items-center">
       <table>
         <thead>
-          <tr className="border-4 border-solid border-buttonBorder text-2xl">
-            <th className="border border-solid border-buttonBorder py-2 px-10">Job Title</th>
-            <th className="border border-solid border-buttonBorder p-2">Posting Date</th>
-            <th className="border border-solid border-buttonBorder p-2">Deadline</th>
-            <th className="border border-solid border-buttonBorder p-2">Salary Range</th>
+          <tr className="border-2 lg:border-4 border-solid border-buttonBorder text-xs lg:text-2xl">
+            <th className="border border-solid border-buttonBorder py-2 lg:px-10">Job Title</th>
+            <th className="border border-solid border-buttonBorder py-2">Posting Date</th>
+            <th className="border border-solid border-buttonBorder py-2">Deadline</th>
+            <th className="border border-solid border-buttonBorder py-2">Salary Range</th>
             <th className="border border-solid border-buttonBorder p-2">Update</th>
-            <th className="border border-solid border-buttonBorder p-5">Delete</th>
+            <th className="border border-solid border-buttonBorder p-2">Delete</th>
           </tr>
         </thead>
         <tbody>
           {jobs.map((item, index) => (
             <tr key={index} className="text-center">
-              <td className="border border-solid border-buttonBorder px-5">{item.jobTitle}</td>
-              <td className="border border-solid border-buttonBorder px-5">{new Date(item.postingDate).toDateString()}</td>
-              <td className="border border-solid border-buttonBorder px-5">{new Date(item.applicationDeadline).toDateString()}</td>
-              <td className="border border-solid border-buttonBorder px-5">{item.salaryRange}</td>
-              <td className="border border-solid border-buttonBorder px-5"><Link to={`/updatejob/${item._id}`} ><Button>Update</Button></Link></td>
-              <td className="border border-solid border-buttonBorder px-5">
-               <span onClick={() => handleDelete(item._id)}><Button>Delete</Button></span>
+              <td className="border border-solid border-buttonBorder lg:px-5 text-xs">{item.jobTitle}</td>
+              <td className="border border-solid border-buttonBorder lg:px-5">{new Date(item.postingDate).toDateString()}</td>
+              <td className="border border-solid border-buttonBorder lg:px-5">{new Date(item.applicationDeadline).toDateString()}</td>
+              <td className="border border-solid border-buttonBorder lg:px-5">{item.salaryRange}</td>
+              <td className="border border-solid border-buttonBorder lg:px-5"><Link to={`/updatejob/${item._id}`} ><button className="m-1 text-xs px-1 py-3 lg:text-base lg:px-5 lg:py-3  bg-blue-600 text-white">Update</button></Link></td>
+              <td className="border border-solid border-buttonBorder lg:px-5">
+               <span onClick={() => handleDelete(item._id)}><button className=" text-xs px-1 py-3 lg:text-base lg:px-5 lg:py-3 bg-blue-600 text-white">Delete</button></span>
               </td>
             </tr>
           ))}

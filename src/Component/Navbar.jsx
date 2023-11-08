@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 
 const Navbar = () => {
-  const { user, logOut, userName } = useContext(AuthContext);
+  const { user, logOut, userName } = useContext(AuthContext) || {}
   // console.log(user.displayName)
   const photoURL = user ? user.photoURL : null;
   const [isDrawerOpen, setDrawerOpen] = useState(false);

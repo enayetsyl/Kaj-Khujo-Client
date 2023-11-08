@@ -75,10 +75,10 @@ const AppliedJob = () => {
       (
         <table ref={targetRef}>
         <thead>
-          <tr className="border-4 border-solid border-buttonBorder text-2xl">
-            <th className="border border-solid border-buttonBorder py-2 px-10">Job Title</th>
-            <th className="border border-solid border-buttonBorder py-2 px-10">Category</th>
-            <th className="border border-solid border-buttonBorder py-2 px-10">Job Description</th>
+          <tr className="border-2 lg:border-4 border-solid border-buttonBorder text-sm lg:text-2xl">
+            <th className="border border-solid border-buttonBorder p-2 lg:px-10">Job Title</th>
+            <th className="border border-solid border-buttonBorder p-2 lg:px-10">Category</th>
+            <th className="border border-solid border-buttonBorder p-2 lg:px-10">Job Description</th>
             <th className="border border-solid border-buttonBorder p-2">Posting Date</th>
             <th className="border border-solid border-buttonBorder p-2">Deadline</th>
             <th className="border border-solid border-buttonBorder p-2">Salary Range</th>
