@@ -1,16 +1,12 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import Button from "./Button";
 import { AuthContext } from "../Provider/AuthProvider";
-import { Link, Navigate, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import swal from "sweetalert";
 
 const JobCard = ({job}) => {
   const {user } = useContext(AuthContext)
-  const location = useLocation();
-  // console.log(user)
-
-
-
+  
   return (
     <div>
        <div 
