@@ -1,3 +1,4 @@
+
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { usePDF } from 'react-to-pdf';
@@ -18,7 +19,7 @@ const AppliedJob = () => {
     // Define an async function to fetch data
     const fetchData = async () => {
       try {
-        const response = await fetch(`https://kaj-khujo-server.vercel.app/api/v1/myappliedjobs?userName=${userName}`);
+        const response = await fetch(`http://localhost:5000/api/v1/myappliedjobs?userName=${userName}`);
 
         if (response.ok) {
           const data = await response.json();
@@ -46,13 +47,22 @@ const AppliedJob = () => {
     return job.job.category === selectedCategory;
   });
 
-  return (
-    <div>
-      
-      <h1 className="text-headingText text-5xl font-bold pb-5 text-center">Applied job</h1>
+  function truncateText(text, wordLimit) {
+    const words = text.split(' ');
+    if (words.length <= wordLimit) {
+      return text;
+    }
+    const truncatedText = words.slice(0, wordLimit).join(' ');
+    return `${truncatedText}...`;
+  }
+  
 
-      <div>
-      <div className="py-5 border border-buttonBorder mb-5 text-center">
+
+
+  return (
+   <div>
+
+<div className="py-5 border border-buttonBorder mb-5 text-center">
       <label className="font-bold text-xl text-black pr-5 ">Filter by Category:</label>
         <select
           value={selectedCategory}
@@ -68,57 +78,63 @@ const AppliedJob = () => {
         </select>
       </div>
 
-      {loading ? (
-         <div className="flex justify-center items-center">
-                 <img src={loadingImage} alt="" className="h-screen"/> 
-                </div>
-      ) : 
-      (
-        <table ref={targetRef}>
-        <thead>
-          <tr className="border-4 border-solid border-buttonBorder text-2xl">
-            <th className="border border-solid border-buttonBorder py-2 px-10">Job Title</th>
-            <th className="border border-solid border-buttonBorder py-2 px-10">Category</th>
-            <th className="border border-solid border-buttonBorder py-2 px-10">Job Description</th>
-            <th className="border border-solid border-buttonBorder p-2">Posting Date</th>
-            <th className="border border-solid border-buttonBorder p-2">Deadline</th>
-            <th className="border border-solid border-buttonBorder p-2">Salary Range</th>
-            <th className="border border-solid border-buttonBorder p-2">Posted By</th>
-            <th className="border border-solid border-buttonBorder p-5">People Applied for the Job</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredJobs.map((job) => (
-            <tr key={job.job._id} className="text-center">
-              <td className="border border-solid border-buttonBorder px-5">{job.job.jobTitle}</td>
-              <td className="border border-solid border-buttonBorder px-5">{job.job.category}</td>
-              <td className="border border-solid border-buttonBorder">{job.job.jobDescription}</td>
-              <td className="border border-solid border-buttonBorder">{new Date(job.job.postingDate).toDateString()}</td>
-              <td className="border border-solid border-buttonBorder">{new Date(job.job.applicationDeadline).toDateString()}</td>
-              <td className="border border-solid border-buttonBorder">{job.job.salaryRange}</td>
-              <td className="border border-solid border-buttonBorder">{job.job.userName}</td>
-              <td className="border border-solid border-buttonBorder">
-               <p>{job.job.applicants}</p>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      )
-      }
-    </div>
-    <div className="flex justify-center items-center py-10">
-  <span onClick={() => toPDF()}>
-   <Button>Generate PDF</Button>
-  </span>
-
- </div>
-
-    </div>
+{loading ? (
+  <div className="flex justify-center items-center">
+    <img src={loadingImage} alt="" className="h-screen" />
+  </div>
+) : (
+  <div className="overflow-y-auto h-auto">
+    <table ref={targetRef} className="min-w-full border-collapse border border-gray-300">
+    <thead className="">
+      <tr className="bg-white">
+        <th className="border border-gray-300 px-4 py-2">Job Title</th>
+        <th className="border border-gray-300 px-4 py-2">Category</th>
+        <th className="border border-gray-300 px-4 py-2">Job Description</th>
+        <th className="border border-gray-300 px-4 py-2">Posting Date</th>
+        <th className="border border-gray-300 px-4 py-2">Deadline</th>
+        <th className="border border-gray-300 px-4 py-2">Salary Range</th>
+        <th className="border border-gray-300 px-4 py-2">Posted By</th>
+        <th className="border border-gray-300 px-4 py-2">People Applied for the Job</th>
+      </tr>
+    </thead>
+    <tbody>
+      {filteredJobs.map((job) => (
+        <tr key={job.job._id} className="text-center">
+          <td className="border border-gray-300 px-4 py-2">{job.job.jobTitle}</td>
+          <td className="border border-gray-300 px-4 py-2">{job.job.category}</td>
+          <td className="border border-gray-300 px-4 py-2">{truncateText(job.job.jobDescription, 10)}</td>
+          <td className="border border-gray-300 px-4 py-2">{new Date(job.job.postingDate).toDateString()}</td>
+          <td className="border border-gray-300 px-4 py-2">{new Date(job.job.applicationDeadline).toDateString()}</td>
+          <td className="border border-gray-300 px-4 py-2">{job.job.salaryRange}</td>
+          <td className="border border-gray-300 px-4 py-2">{job.job.userName}</td>
+          <td className="border border-gray-300 px-4 py-2">
+            <p>{job.job.applicants}</p>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+  </div>
+)}
+  <div className="flex justify-center items-center py-10">
+ <span onClick={() => toPDF()}>
+ <Button>Generate PDF</Button>
+ </span>
+</div>
+   </div>
   );
 };
 
 export default AppliedJob;
+
+
+
+
+
+
+
+
+
 
 
 // import { useContext, useEffect, useState } from "react";
@@ -130,9 +146,9 @@ export default AppliedJob;
 // const AppliedJob = () => {
 //   const { user } = useContext(AuthContext);
 //   const userName = user.displayName;
-//   // console.log(userName)
+//   console.log(userName)
 //   const [jobs, setJobs] = useState([]);
-//   // console.log(jobs)
+//   console.log(jobs)
 //   const [loading, setLoading] = useState(true);
 //   const [selectedCategory, setSelectedCategory] = useState("");
 //   const { toPDF, targetRef } = usePDF({filename: 'page.pdf'});
@@ -141,7 +157,7 @@ export default AppliedJob;
 //     // Define an async function to fetch data
 //     const fetchData = async () => {
 //       try {
-//         const response = await fetch(`https://kaj-khujo-server.vercel.app/api/v1/myappliedjobs?userName=${userName}`);
+//         const response = await fetch(`http://localhost:5000/api/v1/myappliedjobs?userName=${userName}`);
 
 //         if (response.ok) {
 //           const data = await response.json();
@@ -170,38 +186,39 @@ export default AppliedJob;
 //   });
 
 //   return (
-//     <div >
-//       <h1 className="text-headingText text-5xl font-bold pb-5 text-center">Your Applied job</h1>
-     
-//       <div >
-//       <div className="py-5 border border-buttonBorder mb-5 text-center">
-//       <label className="font-bold text-xl text-black pr-5 ">Filter by Category:</label>
-//         <select
-//           value={selectedCategory}
-//           onChange={(e) => setSelectedCategory(e.target.value)}
-//           className='p-4 space-y-2'
-//         >
-//           <option value="" className='p-4'>All Categories</option>
-//           <option value="OnSite" className='p-4'>OnSite</option>
-//           <option value="Remote" className='p-4'>Remote</option>
-//           <option value="Part-Time" className='p-4'>Part-Time</option>
-//           <option value="Hybrid" className='p-4'>Hybrid</option>
-       
-//         </select>
-//       </div>
+//     <div>
+      
+//       <h1 className="text-headingText text-5xl font-bold pb-5 text-center">Applied job</h1>
+
+//       <div>
+      // <div className="py-5 border border-buttonBorder mb-5 text-center">
+      // <label className="font-bold text-xl text-black pr-5 ">Filter by Category:</label>
+      //   <select
+      //     value={selectedCategory}
+      //     onChange={(e) => setSelectedCategory(e.target.value)}
+      //     className='p-4 space-y-2'
+      //   >
+      //     <option value="" className='p-4'>All Categories</option>
+      //     <option value="OnSite" className='p-4'>OnSite</option>
+      //     <option value="Remote" className='p-4'>Remote</option>
+      //     <option value="Part-Time" className='p-4'>Part-Time</option>
+      //     <option value="Hybrid" className='p-4'>Hybrid</option>
+
+      //   </select>
+      // </div>
 
 //       {loading ? (
-//        <div className="flex justify-center items-center">
-//          <img src={loadingImage} alt="" className="h-screen"/> 
-//        </div>
+//          <div className="flex justify-center items-center">
+//                  <img src={loadingImage} alt="" className="h-screen"/> 
+//                 </div>
 //       ) : 
 //       (
-//         <table ref={targetRef}>
+//         <table ref={targetRef} className="table-auto overflow-hidden w-full">
 //         <thead>
-//           <tr className="border-2 lg:border-4 border-solid border-buttonBorder text-sm lg:text-2xl">
-//             <th className="border border-solid border-buttonBorder p-2 lg:px-10">Job Title</th>
-//             <th className="border border-solid border-buttonBorder p-2 lg:px-10">Category</th>
-//             <th className="border border-solid border-buttonBorder p-2 lg:px-10">Job Description</th>
+//           <tr className="">
+//             <th className="border border-solid border-buttonBorder py-2 px-10">Job Title</th>
+//             <th className="border border-solid border-buttonBorder py-2 px-10">Category</th>
+//             <th className="border border-solid border-buttonBorder py-2 px-10">Job Description</th>
 //             <th className="border border-solid border-buttonBorder p-2">Posting Date</th>
 //             <th className="border border-solid border-buttonBorder p-2">Deadline</th>
 //             <th className="border border-solid border-buttonBorder p-2">Salary Range</th>
@@ -212,7 +229,7 @@ export default AppliedJob;
 //         <tbody>
 //           {filteredJobs.map((job) => (
 //             <tr key={job.job._id} className="text-center">
-//               <td className="border border-solid border-buttonBorder px-5">{job?.job?.jobTitle}</td>
+//               <td className="border border-solid border-buttonBorder px-5">{job.job.jobTitle}</td>
 //               <td className="border border-solid border-buttonBorder px-5">{job.job.category}</td>
 //               <td className="border border-solid border-buttonBorder">{job.job.jobDescription}</td>
 //               <td className="border border-solid border-buttonBorder">{new Date(job.job.postingDate).toDateString()}</td>
@@ -229,14 +246,16 @@ export default AppliedJob;
 //       )
 //       }
 //     </div>
-//  <div className="flex justify-center items-center py-10">
+//     <div className="flex justify-center items-center py-10">
 //   <span onClick={() => toPDF()}>
-//   <Button>Generate PDF</Button>
+//    <Button>Generate PDF</Button>
 //   </span>
 
 //  </div>
+
 //     </div>
 //   );
 // };
 
 // export default AppliedJob;
+

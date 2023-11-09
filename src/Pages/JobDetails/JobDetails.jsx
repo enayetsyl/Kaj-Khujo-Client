@@ -14,7 +14,7 @@ const JobDetails = () => {
   const handleFormSubmit = (applicantInfo) => {
     // Handle the form data here (e.g., send it to the server)
     console.log("Form submitted with inputs:", applicantInfo);
-    fetch('https://kaj-khujo-server.vercel.app/api/v1/appliedJob', {
+    fetch('http://localhost:5000/api/v1/appliedJob', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -47,9 +47,9 @@ const JobDetails = () => {
         <span className="text-black">Job Title: </span>
         {jobInfo.jobTitle}
       </h1>
-      <div className="flex flex-col lg:flex-row justify-between items-center border border-buttonBorder py-20 px-2 lg:px-5">
+      <div className="flex flex-col lg:flex-row justify-between items-center border border-buttonBorder py-20 px-2 lg:px-5 gap-8">
         <div className="lg:w-3/4">
-          <h1 className="text-xl font-bold text-black pb-3">Job Description</h1>
+          <h1 className="text-xl font-bold text-black pb-3 text-justify">Job Description</h1>
           <p>{jobInfo.jobDescription}</p>
         </div>
         <div className="lg:w-1/4">

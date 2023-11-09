@@ -9,8 +9,8 @@ import axios from "axios";
 const UpdateJob = () => {
   const jobInfo = useLoaderData();
   console.log(jobInfo)
-  const [postingDate, setPostingDate] = useState(jobInfo.postingDate ? new Date(jobInfo.postingDate) : null);
-const [applicationDeadline, setApplicationDeadline] = useState(jobInfo.applicationDeadline ? new Date(jobInfo.applicationDeadline) : null);
+  const [postingDate, setPostingDate] = useState(jobInfo.postingDate ? new Date(jobInfo.postingDate) : undefined);
+const [applicationDeadline, setApplicationDeadline] = useState(jobInfo.applicationDeadline ? new Date(jobInfo.applicationDeadline) : undefined);
 
   const {user} = useContext(AuthContext)
 console.log(user)
@@ -30,15 +30,15 @@ console.log(user)
       email: user.email,
     };
 
-    console.log(updatedData)
     
     if(postingDate === null || applicationDeadline === null){
       swal("Sorry", "Please select valid date", 'error')
       return;
     }
+    
+    console.log(updatedData)
 
-
-    axios.put(`https://kaj-khujo-server.vercel.app/api/v1/updatejob/${jobInfo._id}`, updatedData, {
+    axios.put(`http://localhost:5000/api/v1/updatejob/${jobInfo._id}`, updatedData, {
   headers: {
     'Content-Type': 'application/json',
   },
@@ -56,7 +56,7 @@ console.log(user)
     console.error('Error:', error);
   });
 
-    // fetch(`https://kaj-khujo-server.vercel.app/api/v1/updatejob/${jobInfo._id}`, {
+    // fetch(`http://localhost:5000/api/v1/updatejob/${jobInfo._id}`, {
     //   method:'PUT',
     //   headers:{
     //     'content-type':'application/json'

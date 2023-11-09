@@ -29,7 +29,7 @@ function AddJob() {
     
   
 
-axios.post('https://kaj-khujo-server.vercel.app/api/v1/addjob', jobData, {
+axios.post('http://localhost:5000/api/v1/addjob', jobData, {
   headers: {
     'Content-Type': 'application/json',
   },

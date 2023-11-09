@@ -10,7 +10,7 @@ const AllJob = () => {
 
   // useEffect(() => {
   //   // Fetch data when the component mounts
-  //   fetch('https://kaj-khujo-server.vercel.app/api/v1/jobs', {
+  //   fetch('http://localhost:5000/api/v1/jobs', {
   //     credentials: 'include', // Include credentials if necessary
   //   })
   //     .then(response => response.json())
