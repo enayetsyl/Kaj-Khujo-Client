@@ -37,7 +37,7 @@ import DynamicTitle from "../Component/DynamicTitle";
       {
         path: '/updatejob/:id',
         element:<PrivateRoute><UpdateJob></UpdateJob></PrivateRoute>,
-        loader: ({params}) => fetch(`http://localhost:5000/api/v1/jobs/${params.id}`)
+        loader: ({params}) => fetch(`https://kaj-khujo-server.vercel.app/api/v1/jobs/${params.id}`)
       },
       {
         path: '/login',
@@ -54,7 +54,7 @@ import DynamicTitle from "../Component/DynamicTitle";
       {
         path: '/alljob',
         element:<AllJob></AllJob>,
-        loader:() => fetch('http://localhost:5000/api/v1/jobs')
+        loader:() => fetch('https://kaj-khujo-server.vercel.app/api/v1/jobs')
       },
       {
         path: '/appliedjob',
@@ -67,7 +67,7 @@ import DynamicTitle from "../Component/DynamicTitle";
       {
         path: '/jobDetails/:id',
         element:<PrivateRoute><JobDetails></JobDetails></PrivateRoute>,
-        loader: ({params}) => fetch(`http://localhost:5000/api/v1/jobs/${params.id}`)
+        loader: ({params}) => fetch(`https://kaj-khujo-server.vercel.app/api/v1/jobs/${params.id}`)
       }
     ]
   },

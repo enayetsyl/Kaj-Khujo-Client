@@ -8,7 +8,7 @@ const Tab = () => {
 
   useEffect(() => {
     // Fetch data from your server based on the active tab
-    fetch(`http://localhost:5000/api/v1/tabJobs?category=${activeTab}`)
+    fetch(`https://kaj-khujo-server.vercel.app/api/v1/tabJobs?category=${activeTab}`)
       .then((response) => response.json())
       .then((data) => setJobs(data))
       .catch((error) => {

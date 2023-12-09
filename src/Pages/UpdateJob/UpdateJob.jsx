@@ -38,7 +38,7 @@ console.log(user)
     
     console.log(updatedData)
 
-    axios.put(`http://localhost:5000/api/v1/updatejob/${jobInfo._id}`, updatedData, {
+    axios.put(`https://kaj-khujo-server.vercel.app/api/v1/updatejob/${jobInfo._id}`, updatedData, {
   headers: {
     'Content-Type': 'application/json',
   },
@@ -56,7 +56,7 @@ console.log(user)
     console.error('Error:', error);
   });
 
-    // fetch(`http://localhost:5000/api/v1/updatejob/${jobInfo._id}`, {
+    // fetch(`https://kaj-khujo-server.vercel.app/api/v1/updatejob/${jobInfo._id}`, {
     //   method:'PUT',
     //   headers:{
     //     'content-type':'application/json'

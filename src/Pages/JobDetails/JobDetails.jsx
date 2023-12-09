@@ -14,7 +14,7 @@ const JobDetails = () => {
   const handleFormSubmit = (applicantInfo) => {
     // Handle the form data here (e.g., send it to the server)
     console.log("Form submitted with inputs:", applicantInfo);
-    fetch('http://localhost:5000/api/v1/appliedJob', {
+    fetch('https://kaj-khujo-server.vercel.app/api/v1/appliedJob', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
